@@ -5,7 +5,7 @@
 # python scripts/reader/preprocess.py data/datasets/ data/datasets/ --split DistDataAll-train
 
 # python scripts/reader/train.py \
-#     --num-epochs=40 \
+#     --num-epochs=60 \
 #     --batch-size=32 \
 #     --model-dir models/ \
 #     --model-name MyMultitask \
@@ -17,13 +17,13 @@
 #     --tune-partial 1000 \
 #     --checkpoint True
 
-# python scripts/pipeline/predict.py data/datasets/CuratedTrec-test-sm.txt --out-dir `pwd` --reader-model models/MyMultitask.mdl --batch-size=64 --predict-batch-size=64
-#
-# python scripts/pipeline/predict.py data/datasets/WikiMovies-test-sm.txt --out-dir `pwd` --reader-model models/MyMultitask.mdl --batch-size=64 --predict-batch-size=64
-#
-# python scripts/pipeline/predict.py data/datasets/WebQuestions-test-sm.txt --out-dir `pwd` --reader-model models/MyMultitask.mdl --batch-size=64 --predict-batch-size=64
-#
-# python scripts/pipeline/predict.py data/datasets/SQuAD-v1.1-dev-sm.txt --out-dir `pwd` --reader-model models/MyMultitask.mdl --batch-size=64 --predict-batch-size=64
+python scripts/pipeline/predict.py data/datasets/CuratedTrec-test-sm.txt --out-dir `pwd` --reader-model models/MyMultitask.mdl --batch-size=64 --predict-batch-size=64
+
+python scripts/pipeline/predict.py data/datasets/WikiMovies-test-sm.txt --out-dir `pwd` --reader-model models/MyMultitask.mdl --batch-size=64 --predict-batch-size=64
+
+python scripts/pipeline/predict.py data/datasets/WebQuestions-test-sm.txt --out-dir `pwd` --reader-model models/MyMultitask.mdl --batch-size=64 --predict-batch-size=64
+
+python scripts/pipeline/predict.py data/datasets/SQuAD-v1.1-dev-sm.txt --out-dir `pwd` --reader-model models/MyMultitask.mdl --batch-size=64 --predict-batch-size=64
 
 python scripts/pipeline/eval.py data/datasets/CuratedTrec-test-sm.txt CuratedTrec-test-sm-MyMultitask-pipeline.preds --regex
 

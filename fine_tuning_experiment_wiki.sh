@@ -18,11 +18,15 @@ python scripts/reader/train.py \
     --embedding-file glove.840B.300d.txt \
     --checkpoint True \
     --pretrained data/reader/single.mdl \
-    --embedding-file glove.840B.300d.txt
-    # --tune-partial 1000 \
-    # --expand-dictionary True \
+    --embedding-file glove.840B.300d.txt \
+    --expand-dictionary True \
+    --tune-partial 1000
     # --restrict-vocab False
 
-python scripts/pipeline/predict.py data/datasets/WikiMovies-test.txt --reader-model models/MyFinetuneWikiMovies.mdl --out-dir `pwd` --batch-size=64 --predict-batch-size=64
+python scripts/pipeline/predict.py data/datasets/WikiMovies-test-sm.txt --reader-model models/MyFinetuneWikiMovies.mdl --out-dir `pwd` --batch-size=64 --predict-batch-size=64
 
-python scripts/pipeline/eval.py data/datasets/CuratedTrec-test.txt WikiMovies-test-MyFinetuneWikiMovies-pipeline.preds
+python scripts/pipeline/eval.py data/datasets/WikiMovies-test-sm.txt WikiMovies-test-sm-MyFinetuneWikiMovies-pipeline.preds
+
+# python scripts/pipeline/predict.py data/datasets/WikiMovies-test.txt --reader-model models/MyFinetuneWikiMovies.mdl --out-dir `pwd` --batch-size=64 --predict-batch-size=64
+
+# python scripts/pipeline/eval.py data/datasets/WikiMovies-test.txt WikiMovies-test-MyFinetuneWikiMovies-pipeline.preds
