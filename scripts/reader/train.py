@@ -414,6 +414,8 @@ def main(args):
             logger.info('...')
             for word in top_words[-6:-1]:
                 logger.info(word)
+            logger.info("Total number of words:%d"   % len(model.word_dict))
+            logger.info("Total number of topwords:%d"% len(top_words))
             model.tune_embeddings([w[0] for w in top_words])
 
         # Set up optimizer

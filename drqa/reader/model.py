@@ -166,6 +166,9 @@ class DocReader(object):
         self.network.register_buffer(
             'fixed_embedding', embedding[idx + 1:].clone()
         )
+        print("-"*100)
+        print("Start Index:%d"%idx)
+        print("-"*100)
 
     def init_optimizer(self, state_dict=None):
         """Initialize an optimizer for the free parameters of the network.
@@ -248,6 +251,10 @@ class DocReader(object):
                 embedding = self.network.embedding.weight.data
                 fixed_embedding = self.network.fixed_embedding
             if offset < embedding.size(0):
+                # print("-"*100)
+                # print("Tune partial:%d"%self.args.tune_partial)
+                # print("WordDictStart:%d"%self.word_dict.START)
+                # print("-"*100)
                 embedding[offset:] = fixed_embedding
 
     # --------------------------------------------------------------------------
