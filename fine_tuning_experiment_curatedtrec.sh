@@ -5,7 +5,7 @@
 # python scripts/reader/preprocess.py data/datasets/ data/datasets/ --split CuratedTrec-train.dstrain-squad-like
 # python scripts/reader/preprocess.py data/datasets/ data/datasets/ --split CuratedTrec-train.dsdev-squad-like
 
-for i in `seq 3`; do
+for i in `seq 1 6`; do
     path="models/my_finetune_curatedtrect_epo$i"
     rm -r $path/
     mkdir -p $path/
@@ -30,9 +30,12 @@ for i in `seq 3`; do
         --use-lemma=False \
         --tune-partial 700; # Since there are in total 700 words : )
 
-    python scripts/pipeline/predict.py data/datasets/CuratedTrec-test.txt --reader-model $path/MyFinetuneCurated.mdl --out-dir $path/ --batch-size=64 --predict-batch-size=64
-
+    python scripts/pipeline/predict.py data/datasets/CuratedTrec-test.txt \
+        --reader-model $path/MyFinetuneCurated.mdl \
+        --out-dir $path/;
+    # --batch-size=64 --predict-batch-size=64
     python scripts/pipeline/eval.py data/datasets/CuratedTrec-test.txt $path/CuratedTrec-test-MyFinetuneCurated-pipeline.preds --regex > $path/curated-test-result-epo$i.log
+    cat $path/curated-test-result-epo$i.log
 done
 
 
