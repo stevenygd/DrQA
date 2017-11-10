@@ -394,3 +394,32 @@ We plan to consolidate this model into the ParlAI interface as well, so that the
 
 ## License
 DrQA is BSD-licensed. We also provide an additional patent grant.
+
+## Finetuning Reproduction
+I created scripts to trying to reproduce the finetuning performance listed in the paper. First run the following scripts to create the datasets. The scripts will use the provided document retriever to create a distant supervised datasets.
+
+```bash
+./make_dist_dataset.sh
+```
+
+This script will create the following datasets:
+
+| Datset | CuratedTREC | WebQuestions | WikiMovies |
+| :----: | :---------: | :----------: | :--------: |
+| Train | 1486 | 3778 | 96185 |
+| Test | 694 | 2032 | 9952 |
+| Dist(all) | 3670 | 7200 | 93926 |
+| Dist(train) | 2935 | 5736 | 75174 |
+| Dist(dev) | 735 | 1464 | 18752 |
+
+Then run the following scripts will provide the results and save the models for finetuning experiments.
+```bash
+./fine_tuning_experiment_curatedtrec.sh   # Finetuning experiments in CuratedTrec datasets.
+./fine_tuning_experiment_webquestions.sh  # Finetuning experiments in WebQuestions datasets.
+./fine_tuning_experiment_wiki.sh          # Finetuning experiments in WikiMovies datasets.
+```
+To obtain the baseline performance using the model trained in SQuAD, run:
+```bash
+./fine_tuning_experiment_single_pipeline.sh
+```
+
