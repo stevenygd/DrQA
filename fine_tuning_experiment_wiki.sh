@@ -1,11 +1,5 @@
 #! /bin/bash
 
-# WikiMovies
-
-# Preprocessing data
-# python scripts/reader/preprocess.py data/datasets/ data/datasets/ --split WikiMovies-train.dstrain-squad-like
-# python scripts/reader/preprocess.py data/datasets/ data/datasets/ --split WikiMovies-train.dsdev-squad-like
-
 for i in "1" "2" "3" "4" "5"; do
     path="models/my_finetune_wikimovies_epo$i"
     if [ ! -d "$path" ]; then
@@ -39,10 +33,5 @@ for i in "1" "2" "3" "4" "5"; do
     fi;
 
     python scripts/pipeline/eval.py data/datasets/WikiMovies-test.txt $path/WikiMovies-test-MyFinetuneWikiMovies-pipeline.preds > $path/wikimovies-result-epo$i.log;
-
-    # python scripts/pipeline/predict.py data/datasets/WikiMovies-test.txt --reader-model models/MyFinetuneWikiMovies.mdl --out-dir `pwd` --batch-size=64 --predict-batch-size=64;
-
-    # python scripts/pipeline/eval.py data/datasets/WikiMovies-test.txt WikiMovies-test-MyFinetuneWikiMovies-pipeline.preds;
-
     cat $path/wikimovies-result-epo$i.log;
 done

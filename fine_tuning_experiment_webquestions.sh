@@ -1,15 +1,6 @@
 #! /bin/bash
 
-# WebQuestions
-
-# Preprocessing data
-# python scripts/reader/preprocess.py data/datasets/ data/datasets/ --split WebQuestions-train.dstrain-squad-like
-# python scripts/reader/preprocess.py data/datasets/ data/datasets/ --split WebQuestions-train.dsdev-squad-like
-
-# for i in `seq 10 10 60`; do
-# for i in "40" "50"; do
-# for i in "60" "40"; do
-for i in "55" "60"; do
+for i in "50" "55" "60"; do
     path="models/my_finetune_webquestions_epo$i"
     if [ ! -d "$path" ]; then
         echo "Path not exists : $path"
@@ -33,12 +24,13 @@ for i in "55" "60"; do
             --use-pos=False \
             --use-lemma=False \
             --tune-partial 1000;
+
+        python scripts/pipeline/predict.py data/datasets/WebQuestions-test.txt \
+            --reader-model $path/MyFinetuneWebQuestions.mdl \
+            --out-dir $path/ \
+            --candidate-file data/datasets/freebase-entities.txt;
     fi;
 
-    python scripts/pipeline/predict.py data/datasets/WebQuestions-test.txt \
-        --reader-model $path/MyFinetuneWebQuestions.mdl \
-        --out-dir $path/ \
-        --candidate-file data/datasets/freebase-entities.txt;
     python scripts/pipeline/eval.py data/datasets/WebQuestions-test.txt $path/WebQuestions-test-MyFinetuneWebQuestions-pipeline.preds > $path/webquestion-result-epo$i.log
     cat $path/webquestion-result-epo$i.log
 
